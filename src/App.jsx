@@ -10,7 +10,7 @@ function App() {
         <h1>Readora</h1>
         <header>
           <img src='./bookCover.png'/>
-          <h2 className='search-text'>Unlock your next <spann className='text-gradient'>adventure</spann>… Type a title!</h2>
+          <h2 className='search-text'>Unlock your next <span className='text-gradient'>adventure</span>… Type a title!</h2>
         </header>
       </div>
     </main>
