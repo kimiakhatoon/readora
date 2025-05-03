@@ -4,12 +4,6 @@
   padding: 2rem;
   text-align: center;
 }
-.angle{
-  position: absolute;
-  max-height:17rem;
-  max-width:14rem;
-  
-}
 .search-text{
   margin:1.5rem;
   font-size:2.5rem;
