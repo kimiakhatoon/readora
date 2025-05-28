@@ -42,3 +42,7 @@
   color: #888;
   font-size: 0.8rem;
 }
+.retry-btn{
+  cursor: pointer; 
+  userSelect: none 
+}

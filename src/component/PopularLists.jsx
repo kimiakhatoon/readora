@@ -8,6 +8,8 @@ const PopularLists = ({ limit = 10 }) => {
 
   const fetchBooks = useCallback(async () => {
     try {
+      setLoading(true);
+      setError(null);
       const response = await fetch(
         `https://gutendex.com/books/?sort=popular&limit=${limit}`
       );
@@ -16,7 +18,6 @@ const PopularLists = ({ limit = 10 }) => {
       
       const data = await response.json();
       setBooks(data.results);
-      setError(null);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -31,12 +32,12 @@ const PopularLists = ({ limit = 10 }) => {
   if (loading) return <div className="loading">📚 loading...</div>;
 
   if (error) return (
-    <div className="error">
-      ⚠️ {error}
-      <button onClick={fetchBooks} className="retry-btn">
-        🔄 تلاش مجدد
+    <><div className="error">
+      {error}</div>
+      <button onClick={fetchBooks} className="retry-btn" typeof='button'>
+         try again
       </button>
-    </div>
+    </>
   );
 
   return (
