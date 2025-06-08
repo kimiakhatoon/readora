@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 @import "tailwindcss";
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
 
 @theme {
   --color-primary: #030014;
@@ -11,7 +13,7 @@
 
   --color-gray-100: #9ca4ab;
 
-  --color-dark-100: #0f0d23;
+  --color-dark-100: #181818;
 
   --font-dm-sans: DM Sans, sans-serif;
   --breakpoint-xs: 480px;
@@ -91,52 +93,27 @@
     }
   }
 
-  .all-movies {
-    @apply space-y-9;
+ 
 
-    & ul {
-      @apply grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
-    }
-  }
-
-  .movie-card {
-    @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10;
+  .book-card {
+    @apply bg-dark-100/5 p-5 rounded-2xl shadow-inner shadow-light-100/10 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
 
     & img {
       @apply rounded-lg h-auto w-full;
     }
 
-    & h3 {
-      @apply text-white font-bold text-base line-clamp-1;
+    & .book-info {
+      @apply mt-2 flex flex-col items-center flex-wrap gap-2 p-1;
     }
 
-    & .content {
-      @apply mt-2 flex flex-row items-center flex-wrap gap-2;
-    }
-
-    & .rating {
+    & .bookcount {
       @apply flex flex-row items-center gap-1;
     }
 
-    & .rating img {
+    & .bookcount img {
       @apply size-4 object-contain;
     }
 
-    & .rating p {
-      @apply font-bold text-base text-white;
-    }
-
-    & .content span {
-      @apply text-sm text-gray-100;
-    }
-
-    & .content .lang {
-      @apply capitalize text-gray-100 font-medium text-base;
-    }
-
-    & .content .year {
-      @apply text-gray-100 font-medium text-base;
-    }
   }
 }
 
