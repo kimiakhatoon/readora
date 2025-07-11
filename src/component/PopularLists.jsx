@@ -69,7 +69,7 @@ useEffect(()=>{
   );
 
   return (
-    <div className='main'> 
+    <div className='mainn'> 
       <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} /> 
       <h2>trending books</h2>
       {trendingBooks.length > 0 && (
