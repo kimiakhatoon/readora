@@ -1,41 +1,59 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import './PopularList.css';
 import SpinnerComp from './spinner';
-import Search from './Search'; // Import the Search component
+import Search from './Search'; 
+import { getTrendingBooks, updateSearchCount } from '../appwrite.js';
+
 
 const PopularLists = ({ limit = 10 }) => {
   const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);  
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // Define searchTerm state here
+  const [searchTerm, setSearchTerm] = useState('');
+  const [trendingBooks, setTrendingBooks]= useState([])
 
   const fetchBooks = useCallback(async (query = '') => {
     try {
-      setLoading(true);
+      setLoading(true);  
       setError(null);
+      
       const endpoint = query
         ? `https://gutendex.com/books/?search=${encodeURIComponent(query)}`
         : `https://gutendex.com/books/?sort=popular&limit=${limit}`;
+      
       const response = await fetch(endpoint);
-
       if (!response.ok) throw new Error(`Error: ${response.status}`);
       
       const data = await response.json();
-      setBooks(data.results);
+      setBooks( data.results || []);
+      if (query && data.results.length > 0){
+        await updateSearchCount(query, data.results[0])
+      }
+
     } catch (err) {
       setError(err.message);
     } finally {
-      setLoading(false);
+      setLoading(false);  
     }
   }, [limit]);
-
-  useEffect(() => {
-    fetchBooks(searchTerm);
-  }, [searchTerm]); // Fetch books when searchTerm changes
-
-  const handleKeyPress = (e) => {
+  const loadingTrendingBooks =async ()=>{
+try {
+  const books = await getTrendingBooks();
+  setTrendingBooks(books)
+} catch (error) {
+  console.error(`error fetching trending books: ${error} `)
+}
+  }
+useEffect(() => {
+  fetchBooks();
+}, [fetchBooks]);
+useEffect(()=>{
+  loadingTrendingBooks()
+});
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      fetchBooks(searchTerm); // Trigger the search when Enter is pressed
+      e.preventDefault();  
+      fetchBooks(searchTerm);  
     }
   };
 
@@ -51,9 +69,26 @@ const PopularLists = ({ limit = 10 }) => {
   );
 
   return (
-    <div>
-      <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} onKeyPress={handleKeyPress} /> {/* Pass the keyPress handler */}
+    <div className='main'> 
+      <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleKeyDown={handleKeyDown} /> 
+      <h2>trending books</h2>
+      {trendingBooks.length > 0 && (
+        <div className="trending">
+          <ul>
+            { trendingBooks.map((book, index) => (
+              <li key={book.$id}>
+                <p >{index +1}</p>
+                <img src={book.poster_url} alt={book.title} />
+              </li>
+            ))
+
+            }
+          </ul>
+        </div>
+      )}
+              <h2>popular books</h2>
       <div className="books-grid">
+
         {books.map((book) => (
           <div key={book.id} className="book-card">
             <img

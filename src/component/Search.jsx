@@ -1,6 +1,5 @@
 import React from 'react';
-
-const Search = ({ searchTerm, setSearchTerm, onKeyPress }) => {
+const Search = ({ searchTerm, setSearchTerm, handleKeyDown }) => {
   return (
     <div className="search">
       <div>
@@ -11,7 +10,7 @@ const Search = ({ searchTerm, setSearchTerm, onKeyPress }) => {
           placeholder="Type a title!"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm when input changes
-          onKeyPress={onKeyPress} // Call onKeyPress when Enter is pressed
+          onKeyDown={handleKeyDown} // Call handleKeyDown when Enter is pressed
         />
       </div>
     </div>
@@ -19,4 +18,3 @@ const Search = ({ searchTerm, setSearchTerm, onKeyPress }) => {
 };
 
 export default Search;
-

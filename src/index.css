@@ -58,10 +58,10 @@
   }
 
   .trending {
-    @apply mt-20;
+    @apply mt-20; 
 
     & ul {
-      @apply flex flex-row overflow-y-auto gap-5 -mt-10 w-full hide-scrollbar;
+      @apply flex flex-row justify-between overflow-y-auto gap-5 -mt-10 w-full hide-scrollbar;
     }
 
     & ul li {
@@ -73,7 +73,7 @@
     }
 
     & ul li img {
-      @apply w-[127px] h-[163px] rounded-lg object-cover -ml-3.5;
+      @apply max-w-40 rounded-lg object-cover -ml-3.5;
     }
   }
 
@@ -122,7 +122,8 @@
 }
 
 @utility fancy-text {
-  -webkit-text-stroke: 5px rgba(206, 206, 251, 0.5);
+  -webkit-text-stroke: 5px rgba(64, 64, 95, 0.5);
+  color: transparent;
   font-size: 190px;
   font-family: "Bebas Neue", sans-serif;
 }
